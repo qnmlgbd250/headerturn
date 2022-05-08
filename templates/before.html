@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>请求头转换</title>
+</head>
+<body>
+<div class="container switch">
+    <div class="container-form container-signup">
+        <form action="/turn" method="post" name="GroupSendForm">
+            <textarea name="data" placeholder="Python请求头格式转换
+输入headers转换体(string类型) 按回车转换
+示例：user-agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/101.0.4951.54 Safari/537.36 Edg/101.0.1210.39"
+                      rows="30" cols="200" onkeydown="mounted()"></textarea>
+        </form>
+    </div>
+</div>
+<script>
+    function mounted() {
+        var that = this
+        document.onkeydown = function (ev) {
+            var oEvent = window.event
+            if (oEvent.keyCode == 13) {
+                ev.preventDefault()
+                document.GroupSendForm.submit()
+            }
+        }
+    }
+</script>
+</body>
+</html>
+
