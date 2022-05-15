@@ -8,8 +8,11 @@ import re
 from fastapi import FastAPI,Form,Request
 import uvicorn
 from fastapi.templating import Jinja2Templates
+from fastapi.staticfiles import StaticFiles
+
 app = FastAPI()
 templates = Jinja2Templates(directory="templates")
+app.mount("/static", StaticFiles(directory="static"), name="static")
 @app.get("/")
 def getdate(request: Request):
     return templates.TemplateResponse('before.html',context = {'request':request})
@@ -24,7 +27,6 @@ def turn(request: Request,data: str = Form(...)):
         headers += re.sub(pattern, '\'\\1\': \'\\2\',', line)
     headers += "}"
     return templates.TemplateResponse('after.html',context = {'request':request,'headers':headers})
-
 
 
 if __name__ == '__main__':
