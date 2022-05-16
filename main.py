@@ -18,7 +18,7 @@ def getdate(request: Request):
     return templates.TemplateResponse('before.html',context = {'request':request})
 
 
-@app.post("/turn")
+@app.post("/")
 def turn(request: Request,data: str = Form(...)):
     s = f'''{data}'''
     pattern = '^(.*?): (.*?)$'
@@ -26,6 +26,7 @@ def turn(request: Request,data: str = Form(...)):
     for line in s.splitlines():
         headers += re.sub(pattern, '\'\\1\': \'\\2\',', line)
     headers += "}"
+    headers = headers.replace(",}", '}')
     return templates.TemplateResponse('after.html',context = {'request':request,'headers':headers})
 
 
