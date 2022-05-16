@@ -4,6 +4,7 @@
     <title>表单转换</title>
     <meta charset="utf-8">
     <link rel="stylesheet" href="/static/css/global.css">
+    <link rel="stylesheet" href="/static/css/layer.css">
     <link rel="shortcut icon" href="/static/img/favicon.ico">
     <style>
         html,body {
@@ -32,11 +33,25 @@
                 top:10%;
                 /*bottom:-100%;*/
                 font: 16px 微软雅黑;
+                color: #ffc0cb;
+                cursor:pointer;
                 border: 3px solid green;
                 border-radius:5px;
-                background-color:rgba(241,241,241,.98);
+                background-color:rgba(241,241,241,.0);
                 padding: 10px;
                 resize:none;
+        }
+        textarea::-webkit-input-placeholder{
+            color:#1edeaa;
+        }
+        textarea::-moz-placeholder{   /* Mozilla Firefox 19+ */
+            color:#1edeaa;
+        }
+        textarea:-moz-placeholder{    /* Mozilla Firefox 4 to 18 */
+            color:#1edeaa;
+        }
+        textarea:-ms-input-placeholder{  /* Internet Explorer 10-11 */
+            color:#1edeaa;
         }
 </style>
 </head>
@@ -48,6 +63,7 @@
     {% endblock %}
 </article>
 <script src="/static/js/jquery.min.js"></script>
+<script src="/static/js/layer.js"></script>
 <script>
     $(function() {
         var canvas = document.querySelector('canvas'),
@@ -182,6 +198,18 @@
         requestAnimationFrame(animateDots);
     });
 
+</script>
+<script>
+    function mounted() {
+        var that = this
+        document.onkeydown = function (ev) {
+            var oEvent = window.event
+            if (oEvent.keyCode === 13) {
+                ev.preventDefault()
+                document.GroupSendForm.submit()
+            }
+        }
+    }
 </script>
 {% block script %}
 {% endblock %}

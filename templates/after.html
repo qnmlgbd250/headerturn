@@ -1,8 +1,24 @@
 {% extends "base.html" %}
 
 {% block body %}
-<div class="outerDiv">
-    <textarea  name="data">{{headers}}</textarea>
+<div class="outerDiv" >
+        <textarea id="output">{{headers}}</textarea>
 </div>
+{% endblock %}
+
+{% block script %}
+
+<script>
+    document.addEventListener("keydown",function(e){
+    if (e.keyCode === 67 && e.ctrlKey) {
+        var text = document.getElementById("output").value;
+        var input = document.getElementById("output");
+        input.select(text);
+        document.execCommand("copy");
+        layer.msg('复制成功!',  {offset: [$(window).height() - 650],icon: 1 ,time: 1000});
+    }
+})
+
+</script>
 {% endblock %}
 
