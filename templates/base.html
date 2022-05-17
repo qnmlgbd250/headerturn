@@ -199,18 +199,7 @@
     });
 
 </script>
-<script>
-    function mounted() {
-        var that = this
-        document.onkeydown = function (ev) {
-            var oEvent = window.event
-            if (oEvent.keyCode === 13) {
-                ev.preventDefault()
-                document.GroupSendForm.submit()
-            }
-        }
-    }
-</script>
+
 {% block script %}
 {% endblock %}
 
