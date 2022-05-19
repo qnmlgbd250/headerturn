@@ -23,8 +23,11 @@ def turn(request: Request,data: str = Form(...)):
     s = f'''{data}'''
     pattern = '^(.*?): (.*?)$'
     headers = '{'
+    headers += '\n'
     for line in s.splitlines():
+        headers += '\t'
         headers += re.sub(pattern, '\'\\1\': \'\\2\',', line)
+        headers += '\n'
     headers += "}"
     headers = headers.replace(",}", '}')
     return templates.TemplateResponse('after.html',context = {'request':request,'headers':headers})
