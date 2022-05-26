@@ -141,6 +141,20 @@
         }
         document.GroupSendForm.submit()
     }
+    document.addEventListener("keydown",function(e){
+        text = $("textarea").val();
+        if (e.keyCode === 13 &&  e.ctrlKey) {
+            if (text === "") {
+            layer.msg('请输入内容!',  {offset: [$(window).height() - 650],icon: 2 ,time: 1000});
+            return false;
+        }
+            document.GroupSendForm.submit()
+        }
+    if (e.keyCode === 27) {
+        document.GroupSendForm.data.value = ''
+    }
+
+})
 </script>
 {% block script %}
 {% endblock %}
