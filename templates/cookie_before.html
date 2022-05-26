@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+
+{% block body %}
+<div class="outerDiv">
+    <form action="/c" method="post" name="GroupSendForm">
+        <textarea name="data" placeholder="Cookie格式转换
+粘贴全部Cookie转换体(string类型) 按Ctrl + Enter转换
+示例：buvid3=D1AA6BE3-40D6-BF4D-4494-4D70B80DADFA86367infoc; i-wanna-go-back=-1;
+输出结果之后按Ctrl + C 即可复制"
+                  onkeydown="mounted()"></textarea>
+    </form>
+</div>
+{% endblock %}
+
+{% block script %}
+
+<script>
+    document.addEventListener("keydown",function(e){
+    if (e.keyCode === 13 &&  e.ctrlKey) {
+        document.GroupSendForm.submit()
+    }
+    if (e.keyCode === 27) {
+        document.GroupSendForm.data.value = ''
+    }
+
+})
+</script>
+{% endblock %}

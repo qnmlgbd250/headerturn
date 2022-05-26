@@ -13,24 +13,43 @@ from fastapi.staticfiles import StaticFiles
 app = FastAPI()
 templates = Jinja2Templates(directory="templates")
 app.mount("/static", StaticFiles(directory="static"), name="static")
-@app.get("/")
+@app.get("/h")
 def getdate(request: Request):
-    return templates.TemplateResponse('before.html',context = {'request':request})
+    return templates.TemplateResponse('header_before.html',context = {'request':request})
 
 
-@app.post("/")
+@app.post("/h")
 def turn(request: Request,data: str = Form(...)):
     s = f'''{data}'''
     pattern = '^(.*?): (.*?)$'
-    headers = '{'
-    headers += '\n'
+    output = '{'
+    output += '\n'
     for line in s.splitlines():
-        headers += '\t'
-        headers += re.sub(pattern, '\'\\1\': \'\\2\',', line)
-        headers += '\n'
-    headers += "}"
-    headers = headers.replace(",}", '}')
-    return templates.TemplateResponse('after.html',context = {'request':request,'headers':headers})
+        output += '\t'
+        output += re.sub(pattern, '\'\\1\': \'\\2\',', line)
+        output += '\n'
+    output += "}"
+    output = output.replace(",}", '}')
+    return templates.TemplateResponse('output.html',context = {'request':request,'output':output})
+
+@app.get("/c")
+def getdate(request: Request):
+    return templates.TemplateResponse('cookie_before.html',context = {'request':request})
+
+
+@app.post("/c")
+def turn(request: Request,data: str = Form(...)):
+    s = f'''{data}'''
+    pattern = '^(.*?)=(.*?)$'
+    output = '{'
+    output += '\n'
+    for line in s.split('; '):
+        output += '\t'
+        output += re.sub(pattern, '\'\\1\': \'\\2\',', line)
+        output += '\n'
+    output += "}"
+    output = output.replace(",}", '}')
+    return templates.TemplateResponse('output.html',context = {'request':request,'output':output})
 
 
 if __name__ == '__main__':
