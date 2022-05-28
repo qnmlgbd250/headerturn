@@ -106,8 +106,8 @@
 
 <article id="container">
     <canvas></canvas>
-    <a href="/h"><input type="button"  class="btn1" value="Header转换"/></a>
-    <a href="/c"><input type="button"  class="btn2" value="Cookie转换"/></a>
+    <a href="/h"><input id='btn1' type="button"  class="btn1" value="Header转换" checked="checked"/></a>
+    <a href="/c"><input id='btn2' type="button"  class="btn2" value="Cookie转换" checked="checked"/></a>
 <!--            <button type="button" class="btn1" value="/h">Header转换</button>-->
 <!--            <button type="button" class="btn2" value="/c">Cookie转换</button>-->
     <a><input type="button"  class="postsu" value="运行" onclick="submit()"/></a>
@@ -133,6 +133,13 @@
         document.execCommand("copy");
         layer.msg('复制成功!',  {offset: [$(window).height() - 650],icon: 1 ,time: 1000});
 }
+    var currenturl = window.location.href;
+    var url = currenturl.split('/');
+    var url1 = url[url.length-1];
+    if (url1 === 'h'){
+        document.getElementById("btn1").style.border = '3px solid pink';}
+    if (url1 === 'c'){
+        document.getElementById("btn2").style.border = '3px solid pink';}
 
 </script>
 {% block script %}
