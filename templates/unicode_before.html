@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+
+{% block body %}
+<div class="outerDiv">
+    <form action="/u" method="post" name="GroupSendForm">
+        <textarea name="data" placeholder="Unicode格式转换
+粘贴全部Unicode转换体(string类型) 按Ctrl + Enter转换
+示例：\u4e24\u6b21\u8f93\u5165\u7684\u5bc6\u7801\u4e0d\u4e00\u81f4
+输出结果之后按Ctrl + C 即可复制"
+                  onkeydown="mounted()"></textarea>
+    </form>
+</div>
+
+{% endblock %}
+
+{% block script %}
+
+
+{% endblock %}

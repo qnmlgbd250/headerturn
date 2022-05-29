@@ -5,6 +5,7 @@
 # @File    : main.py
 # @Software: PyCharm
 import re
+import json
 from fastapi import FastAPI,Form,Request
 import uvicorn
 from fastapi.templating import Jinja2Templates
@@ -49,6 +50,17 @@ def turn(request: Request,data: str = Form(...)):
         output += '\n'
     output += "}"
     output = output.replace(",}", '}')
+    return templates.TemplateResponse('output.html',context = {'request':request,'output':output})
+
+@app.get("/u")
+def getdate(request: Request):
+    return templates.TemplateResponse('unicode_before.html',context = {'request':request})
+
+
+@app.post("/u")
+def turn(request: Request,data: str = Form(...)):
+    s = r'{}'.format(data)
+    output = json.loads(f'"{s}"')
     return templates.TemplateResponse('output.html',context = {'request':request,'output':output})
 
 

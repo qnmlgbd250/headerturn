@@ -25,69 +25,6 @@
             transform: translate3d(0, 0, 0)
         }
 
-        .postsu.postsu{
-            height:5%;
-            width:10%;
-            position:absolute;
-            left:5%;
-            right:5px;
-            top:40%;
-            /*bottom:-100%;*/
-            font: 14px 微软雅黑;
-            text-align:center;
-            line-height: 10%;
-            color: #ffc0cb;
-            cursor:pointer;
-            border: 3px solid green;
-            border-radius:5px;
-            background-color:rgba(241,241,241,.0);
-            padding: 10px;
-            resize:none;
-        }
-
-        .copy.copy{
-            height:5%;
-            width:10%;
-            position:absolute;
-            left:25%;
-            right:5px;
-            top:40%;
-            /*bottom:-100%;*/
-            font: 14px 微软雅黑;
-            text-align:center;
-            line-height: 10%;
-            color: #ffc0cb;
-            cursor:pointer;
-            border: 3px solid green;
-            border-radius:5px;
-            background-color:rgba(241,241,241,.0);
-            padding: 10px;
-            resize:none;
-
-        }
-
-        .clean{
-            height:5%;
-            width:10%;
-            position:absolute;
-            left:15%;
-            right:15px;
-            top:40%;
-            /*bottom:-100%;*/
-            font: 14px 微软雅黑;
-            text-align:center;
-            line-height: 10%;
-            color: #ffc0cb;
-            cursor:pointer;
-            border: 3px solid green;
-            border-radius:5px;
-            background-color:rgba(241,241,241,.0);
-            padding: 10px;
-            resize:none;
-
-            }
-
-
         textarea::-webkit-input-placeholder{
             color:#1edeaa;
         }
@@ -106,15 +43,15 @@
 
 <article id="container">
     <canvas></canvas>
-    <a href="/h"><input id='btn1' type="button"  class="btn1" value="Header转换" checked="checked"/></a>
-    <a href="/c"><input id='btn2' type="button"  class="btn2" value="Cookie转换" checked="checked"/></a>
-<!--            <button type="button" class="btn1" value="/h">Header转换</button>-->
-<!--            <button type="button" class="btn2" value="/c">Cookie转换</button>-->
+    <a href="/h"><input id='btn1' type="button"  class="btn1" value="Header转换" /></a>
+    <a href="/c"><input id='btn2' type="button"  class="btn2" value="Cookie转换" /></a>
+    <a href="/u"><input id='btn3' type="button"  class="btn3" value="Unicode转换" /></a>
+
     <a><input type="button"  class="postsu" value="运行" onclick="submit()"/></a>
     <a href=""><input type="button"  class="clean" value="清空" onclick="clean()"/></a>
     <a><input type="button" class="copy" value="复制" onclick="copy()"/></a>
 
-<!--    <a href=""><input type="button" class="copy" value="复制" onclick="copy()"/></a>-->
+
 
 
     {% block body %}
@@ -126,6 +63,7 @@
 <script src="../static/js/layer.js"></script>
 <script src="../static/js/simple.js"></script>
 <script>
+    //复制结果
     function copy(){
         var text = document.getElementById("output").value;
         var input = document.getElementById("output");
@@ -133,6 +71,7 @@
         document.execCommand("copy");
         layer.msg('复制成功!',  {offset: [$(window).height() - 650],icon: 1 ,time: 1000});
 }
+    //着重显示当前页面的状态
     var currenturl = window.location.href;
     var url = currenturl.split('/');
     var url1 = url[url.length-1];
@@ -140,6 +79,32 @@
         document.getElementById("btn1").style.border = '3px solid pink';}
     if (url1 === 'c'){
         document.getElementById("btn2").style.border = '3px solid pink';}
+    if (url1 === 'u'){
+        document.getElementById("btn3").style.border = '3px solid pink';}
+
+    // 当提交为空时提示
+    function submit(){
+        text = $("textarea").val();
+        if (text === "") {
+            layer.msg('请输入内容!',  {offset: [$(window).height() - 650],icon: 7 ,time: 1000});
+            return false;
+        }
+        document.GroupSendForm.submit()
+    }
+    document.addEventListener("keydown",function(e){
+        text = $("textarea").val();
+        if (e.keyCode === 13 &&  e.ctrlKey) {
+            if (text === "") {
+            layer.msg('请输入内容!',  {offset: [$(window).height() - 650],icon: 7 ,time: 1000});
+            return false;
+        }
+            document.GroupSendForm.submit()
+        }
+    if (e.keyCode === 27) {
+        document.GroupSendForm.data.value = ''
+    }
+
+})
 
 </script>
 {% block script %}
