@@ -59,9 +59,12 @@ def getdate(request: Request):
 
 @app.post("/u")
 def turn(request: Request,data: str = Form(...)):
-    s = r'{}'.format(data)
-    output = json.loads(f'"{s}"')
-    return templates.TemplateResponse('output.html',context = {'request':request,'output':output})
+    try:
+        s = r'{}'.format(data)
+        output = json.loads(f'"{s}"')
+        return templates.TemplateResponse('output.html',context = {'request':request,'output':output})
+    except:
+        return templates.TemplateResponse('output.html',context = {'request':request,'output':'输入错误'})
 
 
 if __name__ == '__main__':
