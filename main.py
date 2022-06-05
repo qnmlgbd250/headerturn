@@ -60,6 +60,7 @@ def getdate(request: Request):
 @app.post("/u")
 def turn(request: Request,data: str = Form(...)):
     try:
+        data = data.replace(r'\\', '\\')
         s = r'{}'.format(data)
         output = json.loads(f'"{s}"')
         return templates.TemplateResponse('output.html',context = {'request':request,'output':output})
