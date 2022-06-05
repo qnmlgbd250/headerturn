@@ -82,6 +82,11 @@
     if (url1 === 'u'){
         document.getElementById("btn3").style.border = '3px solid pink';}
 
+    //清空表单
+    function clean() {
+        $("textarea").val("");
+    }
+
     // 当提交为空时提示
     function submit(){
         text = $("textarea").val();

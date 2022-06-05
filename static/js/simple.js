@@ -130,6 +130,4 @@ $(function() {
         createDots();
         requestAnimationFrame(animateDots);
     });
-function clean() {
-        $("textarea").val("");
-    }
+
