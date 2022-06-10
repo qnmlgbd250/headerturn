@@ -59,6 +59,27 @@
 
         }
 
+.btn4{
+        height:5%;
+        width:10%;
+        position:absolute;
+        left:35%;
+        right:5px;
+        top:5%;
+        /*bottom:-100%;*/
+        font: 14px 微软雅黑;
+        text-align:center;
+        line-height: 10%;
+        color: #ffc0cb;
+        cursor:pointer;
+        border: 3px solid green;
+        border-radius:5px;
+        background-color:rgba(241,241,241,.0);
+        padding: 10px;
+        resize:none;
+
+        }
+
 .outerDiv textarea{
                 height:30%;
                 width:90%;
