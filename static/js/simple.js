@@ -131,3 +131,7 @@ $(function() {
         requestAnimationFrame(animateDots);
     });
 
+//清空表单
+$(function clean() {
+     document.getElementById("output").value="";
+})
