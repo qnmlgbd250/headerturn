@@ -11,12 +11,9 @@ from fastapi import FastAPI, Form, Request
 import uvicorn
 from fastapi.templating import Jinja2Templates
 from fastapi.staticfiles import StaticFiles
-from pathlib import Path
-
-BASE_DIR = Path(__file__).resolve().parent
 
 app = FastAPI()
-templates = Jinja2Templates(directory=str(Path(BASE_DIR, 'templates')))
+templates = Jinja2Templates(directory = "templates")
 app.mount("/static", StaticFiles(directory = "static"), name = "static")
 
 
