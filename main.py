@@ -118,8 +118,8 @@ def turn(request: Request, data: str = Form(...)):
             resp = requests.get('https://tax.kdzwy.com/taxtask/api/task/history', params=param).json()
         else:
             pass
-    except:
-        output = ''
+    except Exception as e:
+        output = str(e)
     else:
         output = json.dumps(resp.get('data')) if (resp.get('code') == 200 and resp.get('msg') == 'success') else {}
     return templates.TemplateResponse('output.html', context = {'request': request, 'output': output})
