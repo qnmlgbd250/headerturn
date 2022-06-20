@@ -7,6 +7,7 @@
 import re
 import json
 import rsa, base64
+import requests
 from fastapi import FastAPI, Form, Request
 import uvicorn
 from fastapi.templating import Jinja2Templates
@@ -79,7 +80,6 @@ def turn(request: Request, data: str = Form(...)):
 def getdate(request: Request):
     return templates.TemplateResponse('pwd_before.html', context = {'request': request})
 
-
 @app.post("/p")
 def turn(request: Request, data: str = Form(...)):
     _PRIVATE_KEY_PATH = 'static/rsa_private_key.pem'
@@ -92,13 +92,40 @@ def turn(request: Request, data: str = Form(...)):
             if type(data) == str: data = base64.b64decode(data)
             message = rsa.decrypt(data, _privkey)
         except rsa.pkcs1.DecryptionError:
-            print('[error]: Decryption failed')
             output = ''
         else:
             output = message.decode('utf-8')
         return templates.TemplateResponse('output.html', context = {'request': request, 'output': output})
     except:
         return templates.TemplateResponse('output.html', context = {'request': request, 'output': '输入错误'})
+
+
+
+@app.get("/d")
+def getdate(request: Request):
+    return templates.TemplateResponse('data_before.html', context = {'request': request})
+
+@app.post("/d")
+def turn(request: Request, data: str = Form(...)):
+    try:
+        param = {
+            'taskId': data
+        }
+        resp = {}
+        if data.startswith('1'):
+            resp = requests.get('https://mtax.kdzwy.com/taxtask/api/task/history', params=param).json()
+        elif data.startswith('3'):
+            resp = requests.get('https://tax.kdzwy.com/taxtask/api/task/history', params=param).json()
+        else:
+            pass
+    except:
+        output = ''
+    else:
+        output = json.dumps(resp.get('data')) if (resp.get('code') == 200 and resp.get('msg') == 'success') else {}
+    return templates.TemplateResponse('output.html', context = {'request': request, 'output': output})
+
+
+
 
 
 if __name__ == '__main__':
