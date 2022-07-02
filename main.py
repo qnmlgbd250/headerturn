@@ -121,7 +121,7 @@ def turn(request: Request, data: str = Form(...)):
     except Exception as e:
         output = str(e)
     else:
-        output = json.dumps(resp.get('data')) if (resp.get('code') == 200 and resp.get('msg') == 'success') else {}
+        output = json.dumps(resp.get('data'),ensure_ascii=False) if (resp.get('code') == 200 and resp.get('msg') == 'success') else {}
     return templates.TemplateResponse('output.html', context = {'request': request, 'output': output})
 
 
