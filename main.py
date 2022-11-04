@@ -10,6 +10,7 @@ import rsa, base64
 import requests
 from fastapi import FastAPI, Form, Request
 import uvicorn
+import lzstring
 from fastapi.templating import Jinja2Templates
 from fastapi.staticfiles import StaticFiles
 from fastapi.responses import HTMLResponse
@@ -121,12 +122,26 @@ def turn(request: Request, data: str = Form(...)):
     except Exception as e:
         output = str(e)
     else:
-        output = json.dumps(resp.get('data'),ensure_ascii=False) if (resp.get('code') == 200 and resp.get('msg') == 'success') else {}
-    return templates.TemplateResponse('output.html', context = {'request': request, 'output': output})
+        output = json.dumps(resp.get('data'), ensure_ascii=False) if (resp.get('code') == 200 and resp.get('msg') == 'success') else {}
+    return templates.TemplateResponse('output.html', context={'request': request, 'output': output})
+
+@app.get("/l")
+def getdate(request: Request):
+    return templates.TemplateResponse('lz_before.html', context = {'request': request})
+
+@app.post("/l")
+def turn(request: Request, data: str = Form(...)):
+    try:
+        output = lzstring.LZString().decompressFromBase64(data)
+
+    except:
+        output = {}
+
+    return templates.TemplateResponse('output.html', context={'request': request, 'output': output})
 
 
 
 
 
 if __name__ == '__main__':
-    uvicorn.run('main:app', host = "0.0.0.0", port = 20225, reload = True)
+    uvicorn.run('main:app', host="0.0.0.0", port=20226, reload=True)
