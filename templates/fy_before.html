@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+
+{% block body %}
+<div class="outerDiv">
+    <form action="/t" method="post" name="GroupSendForm">
+        <textarea name="data" placeholder="翻译-自动检测语言-汉英互译
+输入全部要翻译的内容："
+                  onkeydown="mounted()"></textarea>
+    </form>
+</div>
+{% endblock %}
+
+{% block script %}
+
+
+{% endblock %}
