@@ -114,7 +114,10 @@ def turn(request: Request, data: str = Form(...)):
         }
         resp = {}
         if data.startswith('1'):
+
             resp = requests.get('https://mtax.kdzwy.com/taxtask/api/task/history', params=param).json()
+            if resp.get('code') in [301]:
+                resp = requests.get('https://test1.kdzwy.com/taxtask/api/task/history', params=param).json()
         elif data.startswith('3'):
             resp = requests.get('https://tax.kdzwy.com/taxtask/api/task/history', params=param).json()
         else:
