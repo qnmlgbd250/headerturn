@@ -109,6 +109,7 @@ def getdate(request: Request):
 @app.post("/d")
 def turn(request: Request, data: str = Form(...)):
     try:
+        data = data.strip()
         param = {
             'taskId': data
         }
