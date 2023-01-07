@@ -110,17 +110,21 @@ def getdate(request: Request):
 def turn(request: Request, data: str = Form(...)):
     try:
         data = data.strip()
+        proxies ={
+              "http": None,
+              "https": None,
+            }
         param = {
             'taskId': data
         }
         resp = {}
         if data.startswith('1'):
 
-            resp = requests.get('https://mtax.kdzwy.com/taxtask/api/task/history', params=param).json()
+            resp = requests.get('https://mtax.kdzwy.com/taxtask/api/task/history', params=param, proxies=proxies).json()
             if resp.get('code') in [301]:
-                resp = requests.get('https://test1.kdzwy.com/taxtask/api/task/history', params=param).json()
+                resp = requests.get('https://test1.kdzwy.com/taxtask/api/task/history', params=param, proxies=proxies).json()
         elif data.startswith('3'):
-            resp = requests.get('https://tax.kdzwy.com/taxtask/api/task/history', params=param).json()
+            resp = requests.get('https://tax.kdzwy.com/taxtask/api/task/history', params=param, proxies=proxies).json()
         else:
             pass
     except Exception as e:
