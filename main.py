@@ -110,6 +110,11 @@ def getdate(request: Request):
 def turn(request: Request, data: str = Form(...)):
     try:
         data = data.strip()
+        rule_json = 'static/rule.json'
+        with open(rule_json, mode='rb') as f:
+            rule_json_list = f.read()
+            rule_json_list = json.loads(rule_json_list)
+
         proxies ={
               "http": None,
               "https": None,
@@ -121,8 +126,12 @@ def turn(request: Request, data: str = Form(...)):
         if data.startswith('1'):
 
             resp = requests.get('https://mtax.kdzwy.com/taxtask/api/task/history', params=param, proxies=proxies).json()
+            if not resp['data'].get('defaultRule'):
+                resp['data']['defaultRule'] = rule_json_list
             if resp.get('code') in [301]:
                 resp = requests.get('https://test1.kdzwy.com/taxtask/api/task/history', params=param, proxies=proxies).json()
+                if not resp['data'].get('defaultRule'):
+                    resp['data']['defaultRule'] = rule_json_list
         elif data.startswith('3'):
             resp = requests.get('https://tax.kdzwy.com/taxtask/api/task/history', params=param, proxies=proxies).json()
         else:
