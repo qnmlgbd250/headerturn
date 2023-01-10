@@ -127,7 +127,7 @@ def turn(request: Request, data: str = Form(...)):
         if data.startswith('1'):
 
             resp = requests.get('https://mtax.kdzwy.com/taxtask/api/task/history', params=param, proxies=proxies).json()
-            if not resp['data'].get('defaultRule') and resp['data']['region'] not in old_region_list:
+            if (not resp['data'].get('defaultRule')) and (resp['data']['region'] not in old_region_list):
                 resp['data']['defaultRule'] = rule_json_list
             if resp.get('code') in [301]:
                 resp = requests.get('https://test1.kdzwy.com/taxtask/api/task/history', params=param, proxies=proxies).json()
