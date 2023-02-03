@@ -135,6 +135,9 @@ def turn(request: Request, data: str = Form(...)):
                     resp['data']['defaultRule'] = rule_json_list
         elif data.startswith('3'):
             resp = requests.get('https://tax.kdzwy.com/taxtask/api/task/history', params=param, proxies=proxies).json()
+            if (not resp['data'].get('defaultRule')) and (resp['data']['region'] not in old_region_list):
+                resp['data']['defaultRule'] = rule_json_list
+
         else:
             pass
     except Exception as e:
@@ -193,3 +196,7 @@ def turn(request: Request, data: str = Form(...)):
 
 if __name__ == '__main__':
     uvicorn.run('main:app', host="0.0.0.0", port=20226, reload=True)
+
+
+
+
