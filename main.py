@@ -45,12 +45,12 @@ def turn(request: Request, data: str = Form(...)):
         output += '\n'
     output += "}"
     output = output.replace(",}", '}')
-    return templates.TemplateResponse('output.html', context = {'request': request, 'output': output})
+    return templates.TemplateResponse('output.html', context = {'request': request, 'output': output, 'run_day': run_day})
 
 
 @app.get("/c")
 def getdate(request: Request):
-    return templates.TemplateResponse('cookie_before.html', context = {'request': request})
+    return templates.TemplateResponse('cookie_before.html', context = {'request': request, 'run_day': run_day})
 
 
 @app.post("/c")
@@ -65,12 +65,12 @@ def turn(request: Request, data: str = Form(...)):
         output += '\n'
     output += "}"
     output = output.replace(",}", '}')
-    return templates.TemplateResponse('output.html', context = {'request': request, 'output': output})
+    return templates.TemplateResponse('output.html', context = {'request': request, 'output': output, 'run_day': run_day})
 
 
 @app.get("/u")
 def getdate(request: Request):
-    return templates.TemplateResponse('unicode_before.html', context = {'request': request})
+    return templates.TemplateResponse('unicode_before.html', context = {'request': request, 'run_day': run_day})
 
 
 @app.post("/u")
@@ -79,14 +79,14 @@ def turn(request: Request, data: str = Form(...)):
         data = data.replace(r'\\', '\\')
         s = r'{}'.format(data)
         output = json.loads(f'"{s}"')
-        return templates.TemplateResponse('output.html', context = {'request': request, 'output': output})
+        return templates.TemplateResponse('output.html', context = {'request': request, 'output': output, 'run_day': run_day})
     except:
-        return templates.TemplateResponse('output.html', context = {'request': request, 'output': '输入错误'})
+        return templates.TemplateResponse('output.html', context = {'request': request, 'output': '输入错误', 'run_day': run_day})
 
 
 @app.get("/p")
 def getdate(request: Request):
-    return templates.TemplateResponse('pwd_before.html', context = {'request': request})
+    return templates.TemplateResponse('pwd_before.html', context = {'request': request, 'run_day': run_day})
 
 @app.post("/p")
 def turn(request: Request, data: str = Form(...)):
@@ -103,15 +103,15 @@ def turn(request: Request, data: str = Form(...)):
             output = ''
         else:
             output = message.decode('utf-8')
-        return templates.TemplateResponse('output.html', context = {'request': request, 'output': output})
+        return templates.TemplateResponse('output.html', context = {'request': request, 'output': output, 'run_day': run_day})
     except:
-        return templates.TemplateResponse('output.html', context = {'request': request, 'output': '输入错误'})
+        return templates.TemplateResponse('output.html', context = {'request': request, 'output': '输入错误', 'run_day': run_day})
 
 
 
 @app.get("/d")
 def getdate(request: Request):
-    return templates.TemplateResponse('data_before.html', context = {'request': request})
+    return templates.TemplateResponse('data_before.html', context = {'request': request, 'run_day': run_day})
 
 @app.post("/d")
 def turn(request: Request, data: str = Form(...)):
@@ -151,11 +151,11 @@ def turn(request: Request, data: str = Form(...)):
         output = str(e)
     else:
         output = json.dumps(resp.get('data'), ensure_ascii=False) if (resp.get('code') == 200 and resp.get('msg') == 'success') else {}
-    return templates.TemplateResponse('output.html', context={'request': request, 'output': output})
+    return templates.TemplateResponse('output.html', context={'request': request, 'output': output, 'run_day': run_day})
 
 @app.get("/l")
 def getdate(request: Request):
-    return templates.TemplateResponse('lz_before.html', context = {'request': request})
+    return templates.TemplateResponse('lz_before.html', context = {'request': request, 'run_day': run_day})
 
 @app.post("/l")
 def turn(request: Request, data: str = Form(...)):
@@ -165,12 +165,12 @@ def turn(request: Request, data: str = Form(...)):
     except:
         output = {}
 
-    return templates.TemplateResponse('output.html', context={'request': request, 'output': output})
+    return templates.TemplateResponse('output.html', context={'request': request, 'output': output, 'run_day': run_day})
 
 
 @app.get("/t")
 def getdate(request: Request):
-    return templates.TemplateResponse('fy_before.html', context = {'request': request})
+    return templates.TemplateResponse('fy_before.html', context = {'request': request, 'run_day': run_day})
 
 @app.post("/t")
 def turn(request: Request, data: str = Form(...)):
@@ -196,7 +196,7 @@ def turn(request: Request, data: str = Form(...)):
     except:
         output = {}
 
-    return templates.TemplateResponse('output.html', context={'request': request, 'output': output})
+    return templates.TemplateResponse('output.html', context={'request': request, 'output': output, 'run_day': run_day})
 
 
 
