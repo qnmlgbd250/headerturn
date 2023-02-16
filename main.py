@@ -8,6 +8,7 @@ import re
 import json
 import rsa, base64
 import requests
+from datetime import datetime
 from fastapi import FastAPI, Form, Request
 import uvicorn
 import lzstring
@@ -21,9 +22,15 @@ app.mount("/static", StaticFiles(directory = "static"), name = "static")
 templates = Jinja2Templates(directory="templates")
 
 
+# 诞生日
+target_date = datetime(2022, 5, 8)
+
+# 计算距离今天过去的天数
+run_day = (datetime.now() - target_date).days
+
 @app.get("/h" ,response_class=HTMLResponse)
 def getdate(request: Request):
-    return templates.TemplateResponse('header_before.html', context = {'request': request})
+    return templates.TemplateResponse('header_before.html', context = {'request': request, 'run_day': run_day})
 
 
 @app.post("/h")

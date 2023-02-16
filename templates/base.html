@@ -37,6 +37,17 @@
         textarea:-ms-input-placeholder{  /* Internet Explorer 10-11 */
             color:#1edeaa;
         }
+        /* 容器元素样式 */
+    .container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100px;
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+    }
 </style>
 </head>
 <body>
@@ -54,6 +65,10 @@
     <a><input type="button"  class="postsu" value="运行" onclick="submit()"/></a>
     <a href=""><input type="button"  class="clean" value="清空" onclick="clean()"/></a>
     <a><input type="button" class="copy" value="复制" onclick="copy()"/></a>
+
+    <div class="container">
+        <p>© 2022 - 2023 IF. 拥有所有版权 运行时间：{{ run_day }}天</p>
+    </div>
 
 
 
