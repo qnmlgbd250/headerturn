@@ -67,7 +67,19 @@
     <a><input type="button" class="copy" value="复制" onclick="copy()"/></a>
 
     <div class="container">
-        <p>© 2022 - 2023 IF. 拥有所有版权 累计运行：{{ run_day }}天</p>
+        <p id="result"></p>
+        <script>
+            const pastTime = new Date("2022-05-08T00:00:00");
+            // 当前时间
+            const currentTime = new Date();
+
+            // 计算时间差（以毫秒为单位）
+            const timeDiff = Math.abs(currentTime.getTime() - pastTime.getTime());
+
+            // 将时间差转换为天数
+            const diffInDays = Math.ceil(timeDiff / (1000 * 3600 * 24));
+          document.getElementById("result").innerHTML = `© 2022 - 2023 IF. 拥有所有版权 累计运行：${diffInDays}天`;
+        </script>
     </div>
 
 
